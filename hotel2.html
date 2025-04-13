@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #939090;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s; /* Animation for h1 */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out, slideIn 1s ease-in-out; /* Animation for h2 */
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 50px;
+        }
+
+        .slot {
+            width: 80%;
+            margin: 0 auto 30px auto;
+        }
+
+        .hotel-image {
+            position: relative;
+            width: 30%;
+            margin: 1.5%;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hotel-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hotel-image img {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .hotel-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            display: flex;
+            flex-direction: column; /* Changed to column */
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 10px;
+        }
+
+        .hotel-image:hover .overlay {
+            opacity: 1;
+        }
+
+        .price {
+            font-size: 20px;
+            margin-bottom: 10px; /* Added margin to separate price from button */
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #ff9900;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* Added transform for animation */
+        }
+
+        .button:hover {
+            background-color: #e68a00;
+            transform: scale(1.1); /* Scale up the button on hover */
+        }
+
+        .currency-selector {
+            margin: 20px auto;
+            display: block;
+            width: 80%;
+            text-align: center;
+            position: relative;
+        }
+
+        .currency-selector select {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .currency-selector select:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        .currency-selector label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Hotels</h1>
+
+    <!-- Currency Selector -->
+    <div class="currency-selector">
+        <label for="currency">Select Currency:</label>
+        <select id="currency" onchange="convertCurrency()">
+            <option value="USD" data-rate="1">USD</option>
+            <option value="EUR" data-rate="0.85">EUR</option>
+            <option value="GBP" data-rate="0.75">GBP</option>
+            <option value="INR" data-rate="74.25">INR</option>
+            <option value="JPY" data-rate="110.25">JPY</option>
+            <!-- Add more currencies and their conversion rates as needed -->
+        </select>
+    </div>
+
+    <div class="slot">
+        <h2>Luxury Hotels</h2>
+        <div class="gallery">
+            <div class="hotel-image">
+                <img src="400.png" alt="Luxury Hotel 1">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="300">$300/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="401.png" alt="Luxury Hotel 2">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="400">$400/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="402.png" alt="Luxury Hotel 3">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="350">$350/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="403.png" alt="Luxury Hotel 4">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="450">$450/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="404.png" alt="Luxury Hotel 5">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="500">$500/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slot">
+        <h2>Comfort Hotels</h2>
+        <div class="gallery">
+            <div class="hotel-image">
+                <img src="405.png" alt="Comfort Hotel 1">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="200">$200/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="406.png" alt="Comfort Hotel 2">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="220">$220/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="407.png" alt="Comfort Hotel 3">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="180">$180/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="408.png" alt="Comfort Hotel 4">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="250">$250/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="409.png" alt="Comfort Hotel 5">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="250">$250/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slot">
+        <h2>Budget Hotels</h2>
+        <div class="gallery">
+            <div class="hotel-image">
+                <img src="410.png" alt="Budget Hotel 1">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="70">$70/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="411.png" alt="Budget Hotel 2">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="80">$80/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="412.png" alt="Budget Hotel 3">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="90">$90/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="413.png" alt="Budget Hotel 4">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="75">$75/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hotel-image">
+                <img src="414.png" alt="Budget Hotel 5">
+                <div class="overlay">
+                    <div>
+                        <div class="price" data-price="65">$65/night</div>
+                        <a href="hotel.html" target="_blank" class="button">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convertCurrency() {
+            const selectedCurrency = document.getElementById("currency");
+            const rate = selectedCurrency.options[selectedCurrency.selectedIndex].dataset.rate;
+            const prices = document.querySelectorAll(".price");
+
+            prices.forEach(price => {
+                const basePrice = parseFloat(price.dataset.price);
+                const convertedPrice = (basePrice * rate).toFixed(2);
+                price.textContent = `${convertedPrice} ${selectedCurrency.value}/night`;
+            });
+        }
+    </script>
+</body>
+</html>

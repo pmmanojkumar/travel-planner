@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Page with Photos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0; /* Start with invisible body */
+            animation: fadeIn 1s forwards; /* Fade in the body */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .header {
+            text-align: center; /* Center the heading text */
+            color: #ffdd00; /* Color of the heading text */
+            margin-bottom: 20px; /* Space below the heading */
+            transform: translateY(-20px); /* Move up */
+            opacity: 0; /* Start invisible */
+            animation: slideDown 1s forwards; /* Slide down animation */
+            animation-delay: 0.5s; /* Delay for header */
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .card {
+            position: relative;
+            width: 350px;
+            margin: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* Start invisible */
+            transform: translateY(20px); /* Move down */
+            animation: cardFadeIn 0.5s forwards; /* Card fade-in animation */
+            animation-delay: calc(0.5s + 0.1s * var(--i)); /* Staggered delay based on index */
+        }
+
+        @keyframes cardFadeIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .info {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px;
+            width: 60%;
+            text-align: left;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            overflow-y: auto; /* Enable scrolling if needed */
+            max-height: 150px; /* Set max height for the info section */
+        }
+
+        .card:hover .info {
+            opacity: 1;
+        }
+
+        .info h5 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .info h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .info p {
+            font-size: 14px;
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: #ffdd00;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .read-more:hover {
+            background-color: #f8ec49;
+            transform: scale(1.1);
+        }
+
+        .read-more-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body> 
+    <h1 class="header">To do Information of this countries</h1> <!-- Centered Heading --> 
+    <div class="container">
+        <!-- Card 1 -->
+        <div class="card" style="--i: 1;">
+            <img src="60.png" alt="Photo 1">
+            <div class="info">
+                <h5>Japan</h5>
+                <h1>SHRINE</h1>
+                <p>TO DO : you can visit Japan for anime, beautiful 
+                    infrastructure, manga, and beautiful shrines and 
+                    hot springs etc are a must to do in Japan.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card" style="--i: 2;">
+            <img src="61.png" alt="Photo 2">
+            <div class="info">
+                <h5>BALI</h5>
+                <h1>Temple</h1>
+                <p>Uluwatu Temple: Cliffside temple with stunning sunsets and Kecak dance performances.
+                    Explore Ubud: Visit the Sacred Monkey Forest, Tegalalang Rice Terraces, and art markets.
+                    Beaches: Surf at Kuta, relax at Seminyak, enjoy seafood at Jimbaran, or visit Nusa Dua for tranquility.
+                    Mount Batur Sunrise Trek: Early morning hike for incredible sunrise views.
+                    Waterfalls: Visit Tegenungan, Sekumpul, and Gitgit waterfalls.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card" style="--i: 3;">
+            <img src="62.png" alt="Photo 3">
+            <div class="info">
+                <h5>China</h5>
+                <h1>Li River Cruise</h1>
+                <p>Great Wall of China: Walk along this iconic ancient structure, especially near Beijing.
+                    Forbidden City, Beijing: Explore the massive imperial palace and its rich history.
+                    Terracotta Army, Xi'an: See the thousands of life-sized warrior statues.
+                    Giant Panda Breeding Center, Chengdu: Visit and learn about panda conservation efforts.
+                    Li River Cruise, Guilin: Enjoy scenic views of karst mountains and rivers.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card" style="--i: 4;">
+            <img src="63.png" alt="Photo 4">
+            <div class="info">
+                <h5>Paris</h5>
+                <h1>Eiffel Tower</h1>
+                <p>Eiffel Tower: Climb or take the elevator to the top for stunning city views, especially at night when it's illuminated.
+                    Louvre Museum: Explore the world’s largest art museum and see masterpieces like the Mona Lisa and the Venus de Milo.
+                    Notre-Dame Cathedral: Visit the iconic Gothic cathedral (currently under restoration) and admire its architecture and stained glass windows.
+                    Champs-Élysées & Arc de Triomphe: Stroll along this famous avenue and climb the Arc for panoramic views of Paris.
+                    Montmartre & Sacré-Cœur: Wander the artistic Montmartre district and visit the hilltop Basilica of the Sacred Heart for amazing city views.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card" style="--i: 5;">
+            <img src="64.png" alt="Photo 5">
+            <div class="info">
+                <h5>Turkey</h5>
+                <h1>City</h1>
+                <p>Hagia Sophia, Istanbul: Visit this iconic architectural marvel, once a church, then a mosque, and now a museum, showcasing stunning Byzantine mosaics.
+                    Cappadocia Hot Air Balloon Ride: Soar above the unique fairy-tale landscapes and rock formations at sunrise for breathtaking views.
+                    Pamukkale: Explore the surreal white travertine terraces and hot springs, and visit the ancient city of Hierapolis nearby.
+                    Ephesus: Walk through the well-preserved ruins of this ancient Roman city, home to the Library of Celsus and the Temple of Artemis.
+                    Blue Mosque, Istanbul: Admire the grandeur of this 17th-century mosque with its beautiful blue Iznik tiles and impressive domes.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card" style="--i: 6;">
+            <img src="65.png" alt="Photo 6">
+            <div class="info">
+                <h5>Egypt</h5>
+                <h1>Nile River</h1>
+                <p>Pyramids of Giza: Visit the world-famous pyramids, including the Great Pyramid and the Sphinx, one of the Seven Wonders of the Ancient World.
+                    Luxor's Karnak Temple & Valley of the Kings: Explore ancient temples and the royal tombs, including King Tutankhamun's tomb.
+                    Cruise the Nile River: Take a river cruise between Luxor and Aswan to see Egypt's beautiful landscapes and historical sites.
+                    Abu Simbel Temples: Marvel at these massive rock temples built by Ramses II, relocated to avoid flooding from the Aswan High Dam.
+                    Egyptian Museum, Cairo: Discover a vast collection of ancient Egyptian artifacts, including the treasures of King Tut.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card" style="--i: 7;">
+            <img src="66.png" alt="Photo 7">
+            <div class="info">
+                <h5>Sri Lanka</h5>
+                <h1>Beach Area</h1>
+                <p>Sigiriya Rock Fortress: Climb this ancient rock fortress for stunning views and explore its beautiful frescoes and gardens.
+                    Temple of the Sacred Tooth Relic, Kandy: Visit this important Buddhist temple that houses a relic of Buddha's tooth in the scenic city of Kandy.
+                    Yala National Park: Go on a safari to spot wildlife, including leopards, elephants, and diverse bird species.
+                    Galle Fort: Explore this UNESCO World Heritage site, a historic Dutch colonial fort with charming streets and ocean views.
+                    Ella: Hike to Little Adam’s Peak or visit the Nine Arches Bridge, and enjoy the lush tea plantations and stunning mountain views.
+                </p>
+            </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card" style="--i: 8;">
+            <img src="67.png" alt="Photo 8">
+            <div class="info">
+                <h5>Venice</h5>
+                <h1>Main Area</h1>
+                <p>Gondola Ride: Experience a classic gondola ride through the picturesque canals, allowing you to see the city from a unique perspective.
+                    Doge's Palace: Explore this historic palace, which was the residence of the Doge of Venice, featuring beautiful rooms and the famous Bridge of Sighs.
+                    Rialto Bridge: Walk across this iconic bridge, one of Venice's oldest and most famous landmarks, and enjoy the bustling market nearby.
+                    Murano and Burano Islands: Take a boat trip to these nearby islands known for their glass-making (Murano) and colorful houses (Burano).
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="read-more-container">
+        <a href="#" class="read-more">Read More</a>
+    </div>
+
+</body>
+</html>

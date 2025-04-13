@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .review-form {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 30px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .review-form input,
+        .review-form textarea,
+        .review-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .review-form input:focus,
+        .review-form textarea:focus,
+        .review-form select:focus {
+            border-color: #ff9900;
+        }
+
+        .emoji-rating {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+
+        .emoji-rating span {
+            cursor: pointer;
+            font-size: 30px;
+            transition: transform 0.3s;
+        }
+
+        .emoji-rating span:hover {
+            transform: scale(1.2);
+        }
+
+        .submit-button {
+            background-color: #ff9900;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .submit-button:hover {
+            background-color: #e68a00;
+        }
+
+        .reviews {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .review {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        .review .rating {
+            color: #ff9900;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Reviews</h1>
+.
+    <div class="review-form">
+        <h2>Write a Review</h2>
+        <input type="text" id="reviewerName" placeholder="Your Name" required>
+        
+        <div class="emoji-rating">
+            <span onclick="selectEmoji('😀')">😀</span>
+            <span onclick="selectEmoji('😐')">😐</span>
+            <span onclick="selectEmoji('😞')">😞</span>
+        </div>
+
+        <input type="hidden" id="reviewEmoji" required>
+        <textarea id="reviewComment" rows="4" placeholder="Write your review here..." required></textarea>
+        <button class="submit-button" onclick="submitReview()">Submit Review</button>
+    </div>
+
+    <h2>Public Reviews</h2>
+    <div class="reviews" id="reviewsContainer"></div>
+
+    <script>
+        function selectEmoji(emoji) {
+            document.getElementById("reviewEmoji").value = emoji;
+        }
+
+        function submitReview() {
+            const name = document.getElementById("reviewerName").value;
+            const emoji = document.getElementById("reviewEmoji").value;
+            const comment = document.getElementById("reviewComment").value;
+
+            if (name && emoji && comment) {
+                const reviewsContainer = document.getElementById("reviewsContainer");
+                const reviewDiv = document.createElement("div");
+                reviewDiv.className = "review";
+
+                reviewDiv.innerHTML = `
+                    <strong>${name}</strong> 
+                    <div class="rating">${emoji}</div>
+                    <p>${comment}</p>
+                `;
+
+                reviewsContainer.appendChild(reviewDiv);
+
+                // Clear the form fields
+                document.getElementById("reviewerName").value = '';
+                document.getElementById("reviewEmoji").value = '';
+                document.getElementById("reviewComment").value = '';
+
+                // Animate the review entry
+                reviewDiv.style.animationDelay = `${reviewsContainer.childElementCount * 0.1}s`;
+                reviewDiv.classList.add('fadeInUp');
+            }
+        }
+    </script>
+</body>
+</html>

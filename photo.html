@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Grid with Hover Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+            padding: 20px;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .grid-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: rgb(255, 249, 249);
+            padding: 10px;
+            text-align: center;
+            transition: background 0.5s ease;
+        }
+
+        .grid-item:hover .caption {
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <img src="https://thumbs.dreamstime.com/b/siegessaule-berlin-night-88985990.jpg" alt="Location 1">
+            <div class="caption">
+                <h4>Berlin</h4>
+                <p>Siegessäule</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="https://thumbs.dreamstime.com/b/st-basils-moscow-17550646.jpg" alt="Location 2">
+            <div class="caption">
+                <h4>Moscow Russia</h4>
+                <p>St.Basil's cathedral</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="30.png" alt="Location 3">
+            <div class="caption">
+                <h4>South Africa</h4>
+                <p>Island's</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="34.png" alt="Location 4">
+            <div class="caption">
+                <h4>Australia</h4>
+                <p>Bay areas</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="21.png" alt="Location 5">
+            <div class="caption">
+                <h4>Brazil</h4>
+                <p>rio area</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="22.png" alt="Location 6">
+            <div class="caption">
+                <h4>Switzerland</h4>
+                <p>main city</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="23.png" alt="Location 7">
+            <div class="caption">
+                <h4>US</h4>
+                <p>statue of liberty</p>
+            </div>
+        </div>
+        <div class="grid-item">
+            <img src="32.png" alt="Location 8">
+            <div class="caption">
+                <h4>U.K</h4>
+                <p>Big ben</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

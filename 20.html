@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Booking Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            animation: backgroundAnimation 10s ease infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: #0b0c0d;
+            }
+
+            50% {
+                background-color: #1d1e1f;
+            }
+
+            100% {
+                background-color: #0b0c0d;
+            }
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #1d1e1f;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .emoji-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .emoji img {
+            width: 80px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .emoji img:hover {
+            transform: scale(1.1);
+        }
+
+        .selected {
+            border: 2px solid #28a745;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #confirmationMessage {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #28a745;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .animation-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .animation {
+            display: none;
+        }
+
+        .animation img {
+            width: 100px;
+            height: auto;
+            animation: slideIn 0.5s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Travel Booking Form</h2>
+        <div class="emoji-buttons">
+            <div class="emoji" onclick="showBookingForm('train')">
+                <img id="trainEmoji" src="91.png" alt="Train">
+            </div>
+            <div class="emoji" onclick="showBookingForm('flight')">
+                <img id="flightEmoji" src="94.png" alt="Flight">
+            </div>
+            <div class="emoji" onclick="showBookingForm('bus')">
+                <img id="busEmoji" src="92.png" alt="Bus">
+            </div>
+        </div>
+
+        <div id="amountInfo" class="hidden">
+            <h3 style="text-align:center; color: #ffffff;">Amount: <span id="currencySymbol">$</span><span id="amount">0</span></h3>
+        </div>
+
+        <form id="bookingForm" class="hidden">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" required>
+            </div>
+
+            <div class="form-group">
+                <label for="departure">Departure Date:</label>
+                <input type="date" id="departure" name="departure" required>
+            </div>
+
+            <div class="form-group">
+                <label for="return">Return Date:</label>
+                <input type="date" id="return" name="return">
+            </div>
+
+            <div class="form-group">
+                <label for="travelers">Number of Travelers:</label>
+                <input type="number" id="travelers" name="travelers" min="1" value="1" required oninput="updatePrice()">
+            </div>
+
+            <div class="form-group" id="seatSelection">
+                <!-- Dynamic Seat Selection will be inserted here -->
+            </div>
+
+            <div class="form-group">
+                <label for="currency">Currency:</label>
+                <select id="currency" name="currency" onchange="updateCurrencySymbol()">
+                    <option value="usd" data-rate="1" data-symbol="$">US Dollar</option>
+                    <option value="inr" data-rate="74" data-symbol="₹">Indian Rupee</option>
+                    <option value="aed" data-rate="3.67" data-symbol="د.إ">UAE Dirham</option>
+                    <option value="eur" data-rate="0.85" data-symbol="€">Euro</option>
+                    <option value="gbp" data-rate="0.75" data-symbol="£">British Pound</option>
+                    <option value="jpy" data-rate="110" data-symbol="¥">Japanese Yen</option>
+                    <option value="aud" data-rate="1.35" data-symbol="A$">Australian Dollar</option>
+                    <option value="cad" data-rate="1.25" data-symbol="C$">Canadian Dollar</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="payment">Payment Method:</label>
+                <select id="payment" name="payment">
+                    <option value="debit">Debit Card</option>
+                    <option value="credit">Credit Card</option>
+                    <option value="gpay">Google Pay</option>
+                    <option value="paytm">Paytm</option>
+                    <option value="phonepe">PhonePe</option>
+                    <option value="applepay">Apple Pay</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="comments">Additional Comments:</label>
+                <textarea id="comments" name="comments" rows="4" placeholder="Enter any additional details..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
+        <p id="confirmationMessage" class="hidden"></p>
+        <div class="animation-container">
+            <div id="trainAnimation" class="animation"><img src="200.gif" alt="Train Animation"></div>
+            <div id="flightAnimation" class="animation"><img src="202.gif" alt="Flight Animation"></div>
+            <div id="busAnimation" class="animation"><img src="201.gif" alt="Bus Animation"></div>
+        </div>
+    </div>
+
+    <script>
+        const prices = {
+            train: {
+                firstAC: 100,
+                secondAC: 80,
+                thirdAC: 60
+            },
+            flight: {
+                economy: 20000,
+                business: 80000,
+                first: 100000
+            },
+            bus: {
+                upperBirth: 30,
+                lowerBirth: 35
+            }
+        };
+
+        let selectedTransportType = null;
+
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the usual way
+            showConfirmation();
+            playAnimation();
+            setTimeout(() => {
+                window.location.href = 'index.html'; // Redirect to the original website
+            }, 5000);
+        });
+
+        function showBookingForm(transportType) {
+            if (selectedTransportType !== transportType) {
+                resetBookingForm(); // Reset fields when switching transport type
+            }
+
+            selectedTransportType = transportType;
+
+            document.getElementById('bookingForm').classList.remove('hidden');
+            document.getElementById('amountInfo').classList.remove('hidden');
+
+            const seatSelection = document.getElementById('seatSelection');
+            seatSelection.innerHTML = ''; // Clear previous seat selection options
+
+            // Adjust the emoji styles
+            document.querySelectorAll('.emoji img').forEach(img => img.classList.remove('selected'));
+            document.getElementById(`${transportType}Emoji`).classList.add('selected');
+
+            if (transportType === 'train') {
+                seatSelection.innerHTML = `
+                    <label for="seatType">Seat Type:</label>
+                    <select id="seatType" name="seatType" onchange="updatePrice()">
+                        <option value="firstAC">First AC</option>
+                        <option value="secondAC">Second AC</option>
+                        <option value="thirdAC">Third AC</option>
+                    </select>
+                `;
+            } else if (transportType === 'flight') {
+                seatSelection.innerHTML = `
+                    <label for="seatType">Seat Type:</label>
+                    <select id="seatType" name="seatType" onchange="updatePrice()">
+                        <option value="economy">Economy Class</option>
+                        <option value="business">Business Class</option>
+                        <option value="first">First Class</option>
+                    </select>
+                `;
+            } else if (transportType === 'bus') {
+                seatSelection.innerHTML = `
+                    <label for="seatType">Seat Type:</label>
+                    <select id="seatType" name="seatType" onchange="updatePrice()">
+                        <option value="upperBirth">Upper Birth</option>
+                        <option value="lowerBirth">Lower Birth</option>
+                    </select>
+                `;
+            }
+
+            updatePrice(); // Recalculate price when switching transport types
+        }
+
+        function updatePrice() {
+            const transportType = selectedTransportType;
+            const travelers = parseInt(document.getElementById('travelers').value) || 1;
+            const seatType = document.getElementById('seatType')?.value;
+
+            let amount = 0;
+
+            if (transportType && seatType && prices[transportType] && prices[transportType][seatType]) {
+                amount = prices[transportType][seatType] * travelers;
+            }
+
+            document.getElementById('amount').textContent = amount.toFixed(2);
+        }
+
+        function updateCurrencySymbol() {
+            const currencyElement = document.getElementById('currency');
+            const selectedCurrency = currencyElement.options[currencyElement.selectedIndex];
+            const symbol = selectedCurrency.getAttribute('data-symbol');
+
+            document.getElementById('currencySymbol').textContent = symbol;
+
+            updatePrice(); // Recalculate the price if currency is changed
+        }
+
+        function showConfirmation() {
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            confirmationMessage.textContent = 'Booking successfully submitted! Redirecting...';
+            confirmationMessage.classList.remove('hidden');
+        }
+
+        function resetBookingForm() {
+            const form = document.getElementById('bookingForm');
+
+            // Reset all fields except 'name', 'email', and 'destination'
+            form.reset();
+            document.getElementById('name').value = form.name.value;
+            document.getElementById('email').value = form.email.value;
+            document.getElementById('destination').value = form.destination.value;
+
+            // Hide confirmation message and animations
+            document.getElementById('confirmationMessage').classList.add('hidden');
+            document.querySelectorAll('.animation').forEach(animation => animation.style.display = 'none');
+        }
+
+        function playAnimation() {
+            if (selectedTransportType === 'train') {
+                document.getElementById('trainAnimation').style.display = 'block';
+            } else if (selectedTransportType === 'flight') {
+                document.getElementById('flightAnimation').style.display = 'block';
+            } else if (selectedTransportType === 'bus') {
+                document.getElementById('busAnimation').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>
+
